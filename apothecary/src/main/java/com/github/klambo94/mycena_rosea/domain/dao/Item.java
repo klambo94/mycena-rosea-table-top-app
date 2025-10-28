@@ -4,22 +4,22 @@ import com.github.klambo94.mycena_rosea.domain.Type;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.Set;
 
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="type_type",
+@Table(name = "item")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="dtype",
         discriminatorType = DiscriminatorType.INTEGER)
 public class Item {
     
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @PrimaryKeyJoinColumn
-    Long itemId;
+    Long id;
 
     @Column(unique = true)
     String name;
@@ -31,10 +31,29 @@ public class Item {
     @Column
     double price;
     @Column
-    private double quantity;
-    @ManyToMany
+    double quantity;
+    @Column
+    double weight;
+    @Column
+    private String imagePath;  // Path to the stored image file
+    @Column
+    private String imageName;
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     Set<Characteristic> characteristics;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     Set<Tag> tags;
+
+    public Item(String name, String description, Type itemType, double price, double quantity, double weight, String imagePath, String imageName, Set<Characteristic> characteristics, Set<Tag> tags) {
+        this.name = name;
+        this.description = description;
+        this.itemType = itemType;
+        this.price = price;
+        this.quantity = quantity;
+        this.weight = weight;
+        this.imagePath = imagePath;
+        this.imageName = imageName;
+        this.characteristics = characteristics;
+        this.tags = tags;
+    }
 }

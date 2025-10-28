@@ -11,5 +11,5 @@ import java.util.List;
 public interface CharacteristicRepository extends JpaRepository<Characteristic,Long> {
     @Query("SELECT c FROM Characteristic c LEFT JOIN FETCH c.charProperties")
     List<Characteristic> findAllWithProperties();
-
+    Characteristic findCharacteristicByName(String name);
 }

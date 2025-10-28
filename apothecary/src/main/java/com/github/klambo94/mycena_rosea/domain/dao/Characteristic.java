@@ -15,12 +15,12 @@ import java.util.Set;
 public class Characteristic {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name = "char_properties",
             joinColumns = @JoinColumn(name = "characteristic_id"),

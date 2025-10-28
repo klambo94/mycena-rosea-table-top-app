@@ -26,4 +26,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             + "LEFT JOIN FETCH c.charProperties"
             + " LEFT JOIN FETCH i.tags")
     List<Item> findAllWithFullyHydrated();
+
+    Item findItemByName(String name);
 }

@@ -17,12 +17,12 @@ import lombok.Setter;
 public class CharProp {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
     @Column(nullable = false, unique = true)
     String name;
 
-    @Column(nullable = false, name = "prop_value")
+    @Column(nullable = false)
     String value;
 
     public CharProp() {

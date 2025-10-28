@@ -9,10 +9,11 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
+@Table
 public class Tag {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column
